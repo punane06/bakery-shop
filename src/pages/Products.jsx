@@ -50,18 +50,20 @@ function Products() {
             </tr>
           </thead>
           <tbody>
-            {/* TODO: Order the products by price */}
-            {products.map((product) => (
-              <tr key={product.name + product.price}>
-                <td>{product.name}</td>
-                <td>{product.price}</td>
-                {/*  DONE: Display the quantity in red if it is lower than 3 */}
-                <td className={product.quantity < 3 && "red"}>
-                  {product.quantity}
-                </td>
-                <td>{product.store}</td>
-              </tr>
-            ))}
+            {/* DONE: Order the products by price */}
+            {products
+              .sort((a, b) => b.price - a.price)
+              .map((product) => (
+                <tr key={product.name + product.price}>
+                  <td>{product.name}</td>
+                  <td>{product.price}</td>
+                  {/*  DONE: Display the quantity in red if it is lower than 3 */}
+                  <td className={product.quantity < 3 && "red"}>
+                    {product.quantity}
+                  </td>
+                  <td>{product.store}</td>
+                </tr>
+              ))}
             <tr className="input-row">
               <td>
                 <input

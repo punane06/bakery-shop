@@ -68,7 +68,7 @@ function Employees() {
               <th scope="col">Avatar</th>
               <th scope="col">Name</th>
               <th scope="col">Email</th>
-              {/* <!-- TODO: Add a column for an avatar --> */}
+              {/* <!-- DONE: Add a column for an avatar --> */}
               <th scope="col">Actions</th>
             </tr>
           </thead>
