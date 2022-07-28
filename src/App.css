@@ -1,3 +1,7 @@
 .red {
   color: red;
 }
+
+tbody tr :first-child {
+  font-weight: 700;
+}

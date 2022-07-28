@@ -80,7 +80,7 @@ function Employees() {
                   <img src={e.avatar} alt="avatar"></img>
                 </td>
                 <td>
-                  {e.first_name}
+                  {e.first_name} <br />
                   {e.last_name}
                 </td>
                 <td>{e.email}</td>
@@ -94,24 +94,57 @@ function Employees() {
 
             <tr className="input-row">
               <td>
-                <input type="text" placeholder="ID" className="form-control" />
+                <form>
+                  <input
+                    required
+                    type="number"
+                    placeholder="ID"
+                    className="form-control"
+                  />
+                </form>
               </td>
               <td>
-                <input type="url" placeholder="img" className="form-control" />
+                <form>
+                  <input
+                    required
+                    type="url"
+                    placeholder="Image"
+                    className="form-control"
+                  />
+                </form>
               </td>
               <td>
-                <input
-                  type="text"
-                  placeholder="Name"
-                  className="form-control"
-                />
+                <td>
+                  <form>
+                    <input
+                      required
+                      type="text"
+                      placeholder="First Name"
+                      className="form-control"
+                    />
+                  </form>
+                </td>
+                <br />
+                <td>
+                  <form>
+                    <input
+                      required
+                      type="text"
+                      placeholder="Last Name"
+                      className="form-control"
+                    />
+                  </form>
+                </td>
               </td>
               <td>
-                <input
-                  type="text"
-                  placeholder="Email"
-                  className="form-control"
-                />
+                <form>
+                  <input
+                    required
+                    type="email"
+                    placeholder="Email"
+                    className="form-control"
+                  />
+                </form>
               </td>
               <td>
                 <Button onClick={addEmployee} type="submit" variant="success">
