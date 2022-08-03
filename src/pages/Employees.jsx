@@ -1,20 +1,27 @@
-import { useRef } from "react";
 import { useEffect, useState } from "react";
 import { Button, Table } from "react-bootstrap";
-import { findAllInRenderedTree } from "react-dom/test-utils";
+// import { findAllInRenderedTree } from "react-dom/test-utils";
+// import validator from "validator";
 
 function Employees() {
-  // TODO: Load data from backend service
-  const idRef = useRef();
-  const emailRef = useRef();
-  const firstNameRef = useRef();
-  const lastNameRef = useRef();
-  const avatarRef = useRef();
-  const [message, setMessage] = useState("");
+  // DONE: Load data from backend service
+  // const idRef = useRef();
+  // const emailRef = useRef();
+  // const firstNameRef = useRef();
+  // const lastNameRef = useRef();
+  // const avatarRef = useRef();
+  // const [message, setMessage] = useState("");
 
   const [employees, setEmployees] = useState([]);
 
   const employeesDbUrl = "https://reqres.in/api/users";
+  const [addFormData, setAddFormData] = useState({
+    id: "",
+    image: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+  });
 
   useEffect(() => {
     fetch(employeesDbUrl)
@@ -28,30 +35,54 @@ function Employees() {
       });
   }, []);
 
-  const addEmployee = () => {
-    // TODO: Add validations
-    // TODO: Add an employee to the table
-    if (emailRef.current.value === "") {
-      setMessage("No selected product");
-    } else {
-      setMessage("Successfully added " + firstNameRef.current.value);
+  const handleAddFormChange = (e) => {
+    e.preventDefault();
 
-      const newEmployees = {
-        id: Number(idRef.current.value),
-        email: emailRef.current.value,
-        first_name: firstNameRef.current.value,
-        last_name: lastNameRef.current.value,
-        avatar: avatarRef.current.value,
-      };
-      fetch(employeesDbUrl, {
-        method: "POST",
-        body: JSON.stringify(newEmployees),
-        header: {
-          "Content-Type": "application/json",
-        },
-      });
-    }
+    const fieldName = e.target.getAttribute("name");
+    const fieldValue = e.target.value;
+    const newFormData = { ...addFormData };
+    newFormData[fieldName] = fieldValue;
+    setAddFormData(newFormData);
   };
+
+  const handleAddFormSubmit = (e) => {
+    e.preventDefault();
+    const newEmployee = {
+      id: addFormData.id,
+      email: addFormData.email,
+      firstName: addFormData.first_name,
+      lastName: addFormData.last_name,
+      image: addFormData.avatar,
+    };
+    const newEmployees = [...employees, newEmployee];
+    setEmployees(newEmployees);
+  };
+
+  // const addEmployee = (e) => {
+  //   // TODO: Add validations
+  //   // TODO: Add an employee to the table - there not backend APPis ready yet - need add later
+  //   if (emailRef.current.value === "") {
+  //     setMessage("No selected product");
+  //   } else {
+  //     setEmployees();
+  //     setMessage("Successfully added " + firstNameRef.current.value);
+
+  //     const newEmployees = {
+  //       id: Number(idRef.current.value),
+  //       email: emailRef.current.value,
+  //       first_name: firstNameRef.current.value,
+  //       last_name: lastNameRef.current.value,
+  //       avatar: avatarRef.current.value,
+  //     };
+  //     fetch(employeesDbUrl, {
+  //       method: "POST",
+  //       body: JSON.stringify(newEmployees),
+  //       header: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+  //   }
+  // };
 
   const deleteEmployee = (employee) => {
     // TODO: Delete an employee from the table
@@ -85,7 +116,11 @@ function Employees() {
                 </td>
                 <td>{e.email}</td>
                 <td>
-                  <Button type="button" variant="danger">
+                  <Button
+                    type="button"
+                    variant="danger"
+                    onClick={deleteEmployee()}
+                  >
                     Delete
                   </Button>
                 </td>
@@ -100,6 +135,8 @@ function Employees() {
                     type="number"
                     placeholder="ID"
                     className="form-control"
+                    name="id"
+                    onChange={handleAddFormChange}
                   />
                 </form>
               </td>
@@ -110,6 +147,8 @@ function Employees() {
                     type="url"
                     placeholder="Image"
                     className="form-control"
+                    name="image"
+                    onChange={handleAddFormChange}
                   />
                 </form>
               </td>
@@ -121,6 +160,8 @@ function Employees() {
                       type="text"
                       placeholder="First Name"
                       className="form-control"
+                      name="firstName"
+                      onChange={handleAddFormChange}
                     />
                   </form>
                 </td>
@@ -132,6 +173,8 @@ function Employees() {
                       type="text"
                       placeholder="Last Name"
                       className="form-control"
+                      name="lastName"
+                      onChange={handleAddFormChange}
                     />
                   </form>
                 </td>
@@ -139,15 +182,21 @@ function Employees() {
               <td>
                 <form>
                   <input
-                    required
+                    required="required"
                     type="email"
                     placeholder="Email"
                     className="form-control"
+                    name="email"
+                    onChange={handleAddFormChange}
                   />
                 </form>
               </td>
               <td>
-                <Button onClick={addEmployee} type="submit" variant="success">
+                <Button
+                  type="submit"
+                  variant="success"
+                  onClick={handleAddFormSubmit}
+                >
                   Add
                 </Button>
               </td>

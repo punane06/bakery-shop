@@ -52,7 +52,7 @@ function Products() {
           <tbody>
             {/* DONE: Order the products by price */}
             {products
-              .sort((a, b) => b.price - a.price)
+              .sort((a, b) => a.price - b.price)
               .map((product) => (
                 <tr key={product.name + product.price}>
                   <td>{product.name}</td>
