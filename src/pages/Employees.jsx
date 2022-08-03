@@ -84,8 +84,12 @@ function Employees() {
   //   }
   // };
 
-  const deleteEmployee = (employee) => {
+  const deleteEmployee = (contactId) => {
     // TODO: Delete an employee from the table
+    const newEmployees = [...employees];
+    const index = employees.findIndex((employee) => employee.id === contactId);
+    newEmployees.splice(index, 1);
+    setEmployees(newEmployees);
   };
 
   return (
@@ -119,7 +123,7 @@ function Employees() {
                   <Button
                     type="button"
                     variant="danger"
-                    onClick={deleteEmployee()}
+                    onClick={() => deleteEmployee(employees.id)}
                   >
                     Delete
                   </Button>
